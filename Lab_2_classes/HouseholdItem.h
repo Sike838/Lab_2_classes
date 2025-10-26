@@ -11,24 +11,27 @@ private:
     double totalSpent;
     double averagePrice;
 
-    void calculateAverage();//расчет средней цены
-    void validateName(const char* nameValid) const; // корректность имени 
-    void validatePrice(double price) const;// корректность цены
-    void validateQuantity(int quantity) const;//корректность колличесства
+    void calculateAverage();//СЂР°СЃС‡РµС‚ СЃСЂРµРґРЅРµР№ С†РµРЅС‹
+    void validateName(const char* nameValid) const; // РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РёРјРµРЅРё 
+    void validatePrice(double price) const;// РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ С†РµРЅС‹
+    void validateQuantity(int quantity) const;//РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РєРѕР»Р»РёС‡РµСЃСЃС‚РІР°
 
 public:
-    // Конструкторы
-    HouseholdItem();// создает пустой объект
-    explicit HouseholdItem(const char* itemName);// создает объект с заданным именем, используя делегирование конструкторов
-    HouseholdItem(const HouseholdItem& other);//конструктор копирования
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
+    HouseholdItem();// СЃРѕР·РґР°РµС‚ РїСѓСЃС‚РѕР№ РѕР±СЉРµРєС‚
+    explicit HouseholdItem(const char* itemName);// СЃРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РёРјРµРЅРµРј, РёСЃРїРѕР»СЊР·СѓСЏ РґРµР»РµРіРёСЂРѕРІР°РЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРІ
 
-    // Деструктор
-    ~HouseholdItem();//освобождаем динамическую паммять
+    HouseholdItem(const char* itemName, int quantity, double price = 0.0);
 
-    // Оператор присваивания
-    HouseholdItem& operator=(const HouseholdItem& other);//безопасное присваивания объектов
+    HouseholdItem(const HouseholdItem& other);//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 
-    // Селекторы//читаем поля без возможностии изменений
+    // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+    ~HouseholdItem();//РѕСЃРІРѕР±РѕР¶РґР°РµРј РґРёРЅР°РјРёС‡РµСЃРєСѓСЋ РїР°РјРјСЏС‚СЊ
+
+    // РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
+    HouseholdItem& operator=(const HouseholdItem& other);//Р±РµР·РѕРїР°СЃРЅРѕРµ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ РѕР±СЉРµРєС‚РѕРІ
+
+    // РЎРµР»РµРєС‚РѕСЂС‹//С‡РёС‚Р°РµРј РїРѕР»СЏ Р±РµР· РІРѕР·РјРѕР¶РЅРѕСЃС‚РёРё РёР·РјРµРЅРµРЅРёР№
     const char* const getName() const;
     double getCurrentPrice() const;
     double getMaxPrice() const;
@@ -37,9 +40,19 @@ public:
     double getTotalSpent() const;
     double getAveragePrice() const;
 
-    // Методы
-    void purchase(int quantity, const double& price);//покупка
+    // РњРµС‚РѕРґС‹
+    void purchase(int quantity, const double& price);//РїРѕРєСѓРїРєР°
+
+    // РџР•Р Р•Р“Р РЈР–Р•РќРќР«Р™ РјРµС‚РѕРґ РїРѕРєСѓРїРєРё РїРѕ С‚РµРєСѓС‰РµР№ СЃС‚РѕРёРјРѕСЃС‚Рё
+    void purchase(int quantity); // РўРѕР»СЊРєРѕ РєРѕР»РёС‡РµСЃС‚РІРѕ, С†РµРЅР° - С‚РµРєСѓС‰Р°СЏ
+
+    // РџР•Р Р•Р“Р РЈР–Р•РќРќР«Р™ РѕРїРµСЂР°С‚РѕСЂ += (РїРѕРєСѓРїРєР° РїРѕ С‚РµРєСѓС‰РµР№ С†РµРЅРµ)
+    HouseholdItem& operator+=(int quantity);
+
     void print() const;
 };
+
+// РџР•Р Р•Р“Р РЈР–Р•РќРќР«Р™ РѕРїРµСЂР°С‚РѕСЂ += РІРЅРµ РєР»Р°СЃСЃР° РґР»СЏ РѕР±С‰РµР№ СЃС‚РѕРёРјРѕСЃС‚Рё
+double& operator+=(double& sum, const HouseholdItem& item);
 
 #endif // HOUSEHOLD_ITEM_H
